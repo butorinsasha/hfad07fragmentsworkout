@@ -14,6 +14,10 @@ public class Workout {
                             "100 Push-ups\n" +
                             "100 Sit-ups\n" +
                             "100 Squats"),
+            new Workout("The Wimp Special",
+                            "5 Pull-ups\n" +
+                            "10 Push-ups\n" +
+                            "15 Squats\n"),
             new Workout("Strength and Length",
                             "500 meter run\n" +
                             "21 x 1.5 pood kettleball swing\n" +
