@@ -1,5 +1,6 @@
 package local.hfad.hfad07fragmentsworkout;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +11,27 @@ import android.widget.ArrayAdapter;
 public class WorkoutListFragment extends ListFragment {
 
 
-    @Override
+    // Add the listener to the fragment
+    interface WorkoutListListener {
+        void itemClicked(long id);
+    }
+
+    private WorkoutListListener listener;
+
+    @Override // This happens when the fragment is associated with an activity.
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Initialize listener field of this WorkoutListFragment by operation of casting class of activity to the WorkoutListListener class
+        // Here 'activity' is MainActivity which implements this functional interface method
+        this.listener = (WorkoutListListener) activity;
+    };
+
+    @Override // This is very similar to the activity’s onCreate() method. It can be used to do the initial setup of the fragment.
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override // Fragments use a layout inflater to create their view at this stage.
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
@@ -21,13 +42,14 @@ public class WorkoutListFragment extends ListFragment {
             namesArray[i] = Workout.workouts[i].getName();
         }
 
-        // Creating adapter
+        // Creating adapter using namesArray
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 inflater.getContext(),
                 android.R.layout.simple_list_item_1,
                 namesArray // Adapter will work with this array of data
         );
 
+        // Don't forget to set arrayAdapter
         setListAdapter(arrayAdapter);
 
         // Calling the superclass onCreateView() method gives you the default layout for the ListFragment.
@@ -36,4 +58,9 @@ public class WorkoutListFragment extends ListFragment {
                 container,
                 savedInstanceState);
     }
+
+    @Override // This method is called when the onCreate() method of the activity has completed.
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+    };
 }
