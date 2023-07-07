@@ -7,16 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class WorkoutListFragment extends ListFragment {
 
+        @Override
+        public void onListItemClick(ListView l,
+                                    View v,
+                                    int position,
+                                    long id) {
+            if (listener != null)
+            listener.itemClicked(id);
+        }
 
-    // Add the listener to the fragment
-    interface WorkoutListListener {
-        void itemClicked(long id);
-    }
+        // Add the own listener to the fragment
+        interface WorkoutListListener {
+            void itemClicked(long id);
+        }
 
-    private WorkoutListListener listener;
+        private WorkoutListListener listener;
 
     @Override // This happens when the fragment is associated with an activity.
     public void onAttach(Activity activity) {
@@ -24,7 +33,7 @@ public class WorkoutListFragment extends ListFragment {
         // Initialize listener field of this WorkoutListFragment by operation of casting class of activity to the WorkoutListListener class
         // Here 'activity' is MainActivity which implements this functional interface method
         this.listener = (WorkoutListListener) activity;
-    };
+    }
 
     @Override // This is very similar to the activity’s onCreate() method. It can be used to do the initial setup of the fragment.
     public void onCreate(Bundle savedInstanceState) {
@@ -62,5 +71,5 @@ public class WorkoutListFragment extends ListFragment {
     @Override // This method is called when the onCreate() method of the activity has completed.
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-    };
+    }
 }
