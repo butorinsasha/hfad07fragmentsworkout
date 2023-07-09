@@ -16,8 +16,9 @@ public class WorkoutListFragment extends ListFragment {
                                     View v,
                                     int position,
                                     long id) {
-            if (listener != null)
-            listener.itemClicked(id);
+            if (listener != null) {
+                listener.itemClicked(id);
+            }
         }
 
         // Add the own listener to the fragment
