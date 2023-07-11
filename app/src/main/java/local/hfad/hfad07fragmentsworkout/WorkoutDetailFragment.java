@@ -26,6 +26,13 @@ public class WorkoutDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Rotation of a device doesn't lose information about current workoutId
+        // because we save it in savedInstanceState
+        if (savedInstanceState != null) {
+            workoutId = savedInstanceState.getLong("workoutId");
+        }
+
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
 
@@ -41,12 +48,20 @@ public class WorkoutDetailFragment extends Fragment {
         if (view != null) {
             Workout workout = Workout.workouts[(int) workoutId];
 
-            TextView title = (TextView) view.findViewById(R.id.text_title);
+            TextView title = view.findViewById(R.id.text_title);
             title.setText(workout.getName());
 
             TextView description = view.findViewById(R.id.text_description);
             description.setText(workout.getDescription());
         }
+    }
+
+
+    // Rotation of a device doesn't lose information about current workoutId
+    // because we save it in savedInstanceState
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putLong("workoutId", workoutId);
     }
 
     public void setWorkoutId(long workoutId) {
