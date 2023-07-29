@@ -11,22 +11,22 @@ import android.widget.ListView;
 
 public class WorkoutListFragment extends ListFragment {
 
-        @Override
-        public void onListItemClick(ListView l,
-                                    View v,
-                                    int position,
-                                    long id) {
-            if (listener != null) {
-                listener.itemClicked(id);
-            }
+    @Override
+    public void onListItemClick(ListView l,
+                                View v,
+                                int position,
+                                long id) {
+        if (listener != null) {
+            listener.itemClicked(id);
         }
+    }
 
-        // Add the own listener to the fragment
-        interface WorkoutListListener {
-            void itemClicked(long id);
-        }
+    // Add the own listener to the fragment
+    interface WorkoutListListener {
+        void itemClicked(long id);
+    }
 
-        private WorkoutListListener listener;
+    private WorkoutListListener listener;
 
     @Override // This happens when the fragment is associated with an activity.
     public void onAttach(Activity activity) {

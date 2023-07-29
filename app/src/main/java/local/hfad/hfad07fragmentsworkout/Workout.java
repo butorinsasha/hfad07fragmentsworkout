@@ -1,8 +1,8 @@
 package local.hfad.hfad07fragmentsworkout;
 
 public class Workout {
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     public static final Workout[] workouts = {
             new Workout("The Limb Loosener",
