@@ -1,14 +1,19 @@
 package local.hfad.hfad07fragmentsworkout;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StopwatchFragment extends Fragment implements View.OnClickListener {
 
@@ -22,11 +27,13 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
     Button resetButton;
     TextView timeView;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(this.toString(), "is onCreate()");
+        Log.i(this.toString(), "StopwatchFragment.onCreate()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onCreate()", LENGTH_SHORT).show();
 
         if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
@@ -40,13 +47,20 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         runTimer();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(this.toString(), "StopwatchFragment.onCreateView()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onCreateView()", LENGTH_SHORT).show();
+
         View layout = inflater.inflate(R.layout.fragment_stopwatch, container, false);
-        View layout2 = getView();
-        Log.i(this.toString(),  "layout.equals(layout2) = " + layout.equals(layout2));
+
+            // Just interesting...
+            View layout2 = getView();
+            Log.i(this.toString(),  "layout.equals(layout2) = " + layout.equals(layout2)); // false... hmm???
+            Log.i(this.toString(),  "container.equals(layout2) = " + container.equals(layout2)); // also false... hmm???
 
         greenBulb = layout.findViewById(R.id.green_bulb_view);
         yellowBulb = layout.findViewById(R.id.yellow_bulb_view);
@@ -63,11 +77,13 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         return layout;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onStart() {
         super.onStart();
 
-        Log.i(this.toString(), "is onStart()");
+        Log.i(this.toString(), "StopwatchFragment.onStart()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onStart()", LENGTH_SHORT).show();
 
 
         Log.i(this.toString(), "7. wasRunning = " + wasRunning);
@@ -81,11 +97,13 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         Log.i(this.toString(), "10. isRunning = " + isRunning);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
 
-        Log.i(this.toString(), "is onResume()");
+        Log.i(this.toString(), "StopwatchFragment.onResume()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onResume()", LENGTH_SHORT).show();
 
         if(wasRunning){
             isRunning = true;
@@ -96,34 +114,41 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onPause() {
         super.onPause();
 
-        Log.i(this.toString(), "is onPause()");
+        Log.i(this.toString(), "StopwatchFragment.onPause()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onPause()", LENGTH_SHORT).show();
 
         wasRunning = isRunning;
         isRunning = false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        Log.i(this.toString(), "is onSaveInstanceState()");
+        Log.i(this.toString(), "StopwatchFragment.onSaveInstanceState()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onSaveInstanceState()", LENGTH_SHORT).show();
 
         savedInstanceState.putInt("seconds", seconds);
         savedInstanceState.putBoolean("isRunning", isRunning);
         savedInstanceState.putBoolean("wasRunning", wasRunning);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onStop() {
         super.onStop();
 
-        Log.i(this.toString(), "is onStop()");
+        Log.i(this.toString(), "StopwatchFragment.onStop()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onStop()", LENGTH_SHORT).show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -131,7 +156,8 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         Log.i(this.getClass().getName(), "30. wasRunning = " + wasRunning);
         Log.i(this.getClass().getName(), "31. isRunning = " + isRunning);
 
-        Log.i(this.toString(), "is onDestroy()");
+        Log.i(this.toString(), "StopwatchFragment.onDestroy()");
+        Toast.makeText(this.getContext(), "StopwatchFragment.onDestroy()", LENGTH_SHORT).show();
 
         Log.i(this.getClass().getName(), "32. wasRunning = " + wasRunning);
         Log.i(this.getClass().getName(), "33. isRunning = " + isRunning);
@@ -172,7 +198,7 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         handler.post(new Runnable() {
                          @Override
                          public void run() {
-                             Log.i(this.getClass().getName(), "is in run() of runTimer()");
+                             Log.i(this.getClass().getName(), "in run() of runTimer()");
                              if (isRunning) {
                                  seconds++;
                                  Log.i(this.getClass().getName(), "isRunning = " + isRunning);
