@@ -2,8 +2,11 @@ package local.hfad.hfad07fragmentsworkout;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ public class WorkoutDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override // Fragments create their Views (not visible so far) at the stage of onCreateView() so inflater.inflate should be overridden here
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -34,11 +38,13 @@ public class WorkoutDetailFragment extends Fragment {
             workoutId = savedInstanceState.getLong("workoutId");
         } else {
             StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            Log.i(this.getClass().getSimpleName(), "stopwatchFragmentTransaction is about to begin");
             FragmentTransaction stopwatchFragmentTransaction = getChildFragmentManager().beginTransaction()
                     .replace(R.id.stopwatch_container, stopwatchFragment)
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             stopwatchFragmentTransaction.commit();
+            Log.i(this.getClass().getSimpleName(), "stopwatchFragmentTransaction committed");
         }
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
