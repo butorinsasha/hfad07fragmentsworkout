@@ -29,6 +29,14 @@ public class MainActivity extends Activity implements WorkoutListFragment.Workou
                     .addToBackStack(null)                                                // Add fragmentTransaction to back stack to get 'Back' button work well, The addToBackStack() method takes one parameter, a String name you can use to label the transaction:
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);           // Define fragment transition
             fragmentTransaction.commit();                                                // Don't forget to commit all about commit
+
+            // Try wrong way for adding the StopwatchFragment
+            StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction()
+                    .replace(R.id.stopwatch_container, stopwatchFragment)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction2.commit();
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(DetailActivity.WORKOUT_ID, (int) id);
