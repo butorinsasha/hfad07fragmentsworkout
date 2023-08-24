@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class StopwatchFragment extends Fragment {
+public class StopwatchFragment extends Fragment implements View.OnClickListener {
 
     private int seconds = 0;
     private boolean isRunning; // false (default)
@@ -19,6 +19,7 @@ public class StopwatchFragment extends Fragment {
     private View yellowBulb;
     private View redBulb;
     Button startStopButton;
+    Button resetButton;
     TextView timeView;
 
     @Override
@@ -50,8 +51,15 @@ public class StopwatchFragment extends Fragment {
         greenBulb = layout.findViewById(R.id.green_bulb_view);
         yellowBulb = layout.findViewById(R.id.yellow_bulb_view);
         redBulb = layout.findViewById(R.id.red_bulb_view);
+
         startStopButton = layout.findViewById(R.id.start_stop_button);
+        startStopButton.setOnClickListener(this);
+
+        resetButton = layout.findViewById(R.id.reset_button);
+        resetButton.setOnClickListener(this);
+
         timeView = layout.findViewById(R.id.time_view);
+
         return layout;
     }
 
@@ -205,6 +213,18 @@ public class StopwatchFragment extends Fragment {
                     redBulb.setBackgroundColor(getResources().getColor(R.color.red));
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.start_stop_button:
+                onClickStartStop(view);
+                break;
+            case R.id.reset_button:
+                onClickReset(view);
+                break;
         }
     }
 }
