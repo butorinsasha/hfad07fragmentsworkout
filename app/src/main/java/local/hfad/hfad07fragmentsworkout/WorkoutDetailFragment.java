@@ -32,15 +32,14 @@ public class WorkoutDetailFragment extends Fragment {
         // because we save it in savedInstanceState
         if (savedInstanceState != null) {
             workoutId = savedInstanceState.getLong("workoutId");
+        } else {
+            StopwatchFragment stopwatchFragment = new StopwatchFragment();
+            FragmentTransaction stopwatchFragmentTransaction = getChildFragmentManager().beginTransaction()
+                    .replace(R.id.stopwatch_container, stopwatchFragment)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            stopwatchFragmentTransaction.commit();
         }
-
-        StopwatchFragment stopwatchFragment = new StopwatchFragment();
-        FragmentTransaction stopwatchFragmentTransaction = getChildFragmentManager().beginTransaction()
-                .replace(R.id.stopwatch_container, stopwatchFragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        stopwatchFragmentTransaction.commit();
-
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
 
