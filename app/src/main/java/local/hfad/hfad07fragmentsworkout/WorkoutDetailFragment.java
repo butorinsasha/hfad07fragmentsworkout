@@ -1,6 +1,7 @@
 package local.hfad.hfad07fragmentsworkout;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,6 +33,13 @@ public class WorkoutDetailFragment extends Fragment {
         if (savedInstanceState != null) {
             workoutId = savedInstanceState.getLong("workoutId");
         }
+
+        StopwatchFragment stopwatchFragment = new StopwatchFragment();
+        FragmentTransaction stopwatchFragmentTransaction = getChildFragmentManager().beginTransaction()
+                .replace(R.id.stopwatch_container, stopwatchFragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        stopwatchFragmentTransaction.commit();
 
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }

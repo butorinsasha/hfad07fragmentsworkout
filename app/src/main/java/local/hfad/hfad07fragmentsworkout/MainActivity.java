@@ -23,20 +23,12 @@ public class MainActivity extends Activity implements WorkoutListFragment.Workou
         if (fragmentContainer != null) {
             WorkoutDetailFragment workoutDetailFragment = new WorkoutDetailFragment();   // Crete fragment programmatically
             workoutDetailFragment.setWorkoutId(id);                                      // Set workoutId for just created new WorkoutDetailFragment()
-            FragmentTransaction fragmentTransaction = getFragmentManager()               // To manage Fragments and FragmentsTransactions we need to use FragmentTransaction by calling getFragmentManager()
+            FragmentTransaction workoutDetailFragmentTransaction = getFragmentManager()               // To manage Fragments and FragmentsTransactions we need to use FragmentTransaction by calling getFragmentManager()
                     .beginTransaction()                                                  // Start the fragment transaction
                     .replace(R.id.fragment_container, workoutDetailFragment)             // Replace the fragment if FrameLayout with it's by created workoutDetailFragment above
-                    .addToBackStack(null)                                                // Add fragmentTransaction to back stack to get 'Back' button work well, The addToBackStack() method takes one parameter, a String name you can use to label the transaction:
+                    .addToBackStack(null)                                                // Add workoutDetailFragmentTransaction to back stack to get 'Back' button work well, The addToBackStack() method takes one parameter, a String name you can use to label the transaction:
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);           // Define fragment transition
-            fragmentTransaction.commit();                                                // Don't forget to commit all about commit
-
-            // Try wrong way for adding the StopwatchFragment
-            StopwatchFragment stopwatchFragment = new StopwatchFragment();
-            FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction()
-                    .replace(R.id.stopwatch_container, stopwatchFragment)
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction2.commit();
+            workoutDetailFragmentTransaction.commit();                                                // Don't forget to commit all about commit
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(DetailActivity.WORKOUT_ID, (int) id);
